@@ -38,7 +38,7 @@ jobs:
             ${{ github.workspace }}\mingw64\bin;^
             ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;^
             gcc --version &&^
-            cd curl && 
+            cd curl &&^
             cmake.exe -G "MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBUILD_SHARED_LIBS=OFF ^
