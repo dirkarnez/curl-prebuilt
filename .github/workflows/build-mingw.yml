@@ -29,10 +29,15 @@ jobs:
       - name: curl cmake-3.24.0-windows-x86_64.zip
         shell: cmd
         run: cd /d ${{ github.workspace }} && curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip && dir && 7z.exe x cmake-3.24.0-windows-x86_64.zip
+
+      - name: curl mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip
+        shell: cmd
+        run: cd /d ${{ github.workspace }} && curl https://github.com/dirkarnez/mbedtls-prebuilt/releases/download/v3.2.1/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -L --output mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip && dir && 7z.exe x mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -o"${{ github.workspace }}\mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0"
         
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
         run: |
+            set WORKSPACE=%~dp0:\=/%
             set PATH=^
             ${{ github.workspace }}\mingw64;^
             ${{ github.workspace }}\mingw64\bin;^
@@ -41,6 +46,7 @@ jobs:
             cd curl &&^
             cmake.exe -G "MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
+            -D="%WORKSPACE%/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0/cmake" ^
             -DBUILD_SHARED_LIBS=OFF ^
             -DENABLE_UNICODE=ON ^
             -DCMAKE_INSTALL_PREFIX="build/${{ env.cmakeInstallationPath }}" -B./build &&^
