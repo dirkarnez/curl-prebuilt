@@ -12,7 +12,7 @@ jobs:
     env:
       libraryName: curl
       cmakeInstallationPath: curl-installation
-      tagName: curl-7_85_0
+      tagName: curl-7_86_0
       mingwTargetZip: curl-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
       - name: check mingw version
@@ -30,9 +30,10 @@ jobs:
         shell: cmd
         run: cd /d ${{ github.workspace }} && curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip && dir && 7z.exe x cmake-3.24.0-windows-x86_64.zip
 
-      - name: curl mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip
-        shell: cmd
-        run: cd /d ${{ github.workspace }} && curl https://github.com/dirkarnez/mbedtls-prebuilt/releases/download/v3.2.1/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -L --output mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip && dir && 7z.exe x mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -o"${{ github.workspace }}\mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0"
+# -Dmbedtls_DIR="%WORKSPACE%/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0/cmake" ^
+#       - name: curl mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip
+#         shell: cmd
+#         run: cd /d ${{ github.workspace }} && curl https://github.com/dirkarnez/mbedtls-prebuilt/releases/download/v3.2.1/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -L --output mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip && dir && 7z.exe x mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0.zip -o"${{ github.workspace }}\mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0"
         
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
@@ -46,9 +47,8 @@ jobs:
             cd curl &&^
             cmake.exe -G "MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
-            -DCURL_USE_MBEDTLSE=ON ^
-            -DCURL_ENABLE_SSL=ON ^
-            -Dmbedtls_DIR="%WORKSPACE%/mbedtls-v3.2.1-x86_64-posix-seh-rev0-8.1.0/cmake" ^
+            -DBUILD_CURL_EXE=OFF ^
+            -DCURL_USE_SCHANNEL=ON ^
             -DBUILD_SHARED_LIBS=OFF ^
             -DENABLE_UNICODE=ON ^
             -DCMAKE_INSTALL_PREFIX="build/${{ env.cmakeInstallationPath }}" -B./build &&^
