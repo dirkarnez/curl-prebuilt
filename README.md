@@ -5,5 +5,8 @@ Prebuilt of [curl/curl: A command line tool and library for transferring data wi
 ### Notes
 - this build current using curl's Windows native SSL support [Schannel](https://learn.microsoft.com/en-us/windows-server/security/tls/tls-ssl-schannel-ssp-overview)
 
+### Tutorials
+- [c - How to compile curl with latest openssl - Stack Overflow](https://stackoverflow.com/questions/28426412/how-to-compile-curl-with-latest-openssl)
+
 ### Playground
 - [dirkarnez/curl-playground](https://github.com/dirkarnez/curl-playground)
