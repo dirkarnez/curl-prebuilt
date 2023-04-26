@@ -13,7 +13,7 @@ jobs:
       libraryName: curl
       cmakeInstallationPath: curl-installation
       tagName: curl-7_86_0
-      mingwTargetZip: curl-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
+      mingwTargetZip: curl-${{ github.ref_name }}-mingw64-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
       - name: check mingw version
         run: gcc --version
